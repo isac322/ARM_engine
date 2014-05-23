@@ -22,6 +22,7 @@ void DataProcess(unsigned int Instruction);
 void Branch_BDT(unsigned int Instruction);
 void Coproc(unsigned int Instruction);
 
+extern unsigned int *stack;
 extern unsigned int reg[16];
 extern unsigned int *lr;
 extern unsigned int *pc;

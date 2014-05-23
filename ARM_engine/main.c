@@ -61,26 +61,6 @@ int main(int argc, char **args) {
 	execute();
 }
 
-/*
- * address : 검색할 주소
- *
- * address에 해당하는 실행코드 반환
- */
-unsigned int getCodeAt(unsigned int address) {
-	int labelJumpN = symCount;
-
-	while (address < symTable[--labelJumpN].addr);
-	return lines[((address - symTable[labelJumpN].addr) >> 2) + symTable[labelJumpN].count].oper.INT;
-}
-
-void printCode() {
-	int i = 0;
-
-	for (; i < lineCount; i++) {
-		printf("%08x: %08x\n", lines[i].addr, lines[i].oper);
-	}
-}
-
 /* 입력받은 코드를 실행 */
 void execute() {
 	cpsr.bits.z = 1;
@@ -104,5 +84,25 @@ void execute() {
 		//printf("%8x %8x %8x %8x\n", reg[0], reg[1], reg[2], cpsr.cpsr);
 
 		*pc += 4;
+	}
+}
+
+/*
+ * address : 검색할 주소
+ *
+ * address에 해당하는 실행코드 반환
+ */
+unsigned int getCodeAt(unsigned int address) {
+	int labelJumpN = symCount;
+
+	while (address < symTable[--labelJumpN].addr);
+	return lines[((address - symTable[labelJumpN].addr) >> 2) + symTable[labelJumpN].count].oper.INT;
+}
+
+void printCode() {
+	int i = 0;
+
+	for (; i < lineCount; i++) {
+		printf("%08x: %08x\n", lines[i].addr, lines[i].oper);
 	}
 }
