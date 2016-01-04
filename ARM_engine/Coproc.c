@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "ARM_engine.h"
 #include "InstructionsSetBitField.h"
 
