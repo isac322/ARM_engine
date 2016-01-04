@@ -1,0 +1,11 @@
+00008354 <main>:
+    8354:	e3e00000 	mvn	r0, #0
+    8358:	e3a01000 	mov	r1, #0
+    835c:	e3a06001 	mov	r6, #1
+    8360:	e2811803 	add	r1, r1, #196608	; 0x30000
+    8364:	e0c32190 	smull	r2, r3, r0, r1
+    8368:	e0c54690 	smull	r4, r5, r0, r6
+    836c:	e0887190 	umull	r7, r8, r0, r1
+    8370:	e08a9690 	umull	r9, sl, r0, r6
+    8374:	e12fff1e 	bx	lr
+

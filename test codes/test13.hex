@@ -1,0 +1,23 @@
+00008354 <main>:
+    8354:	e3a00001 	mov	r0, #1
+    8358:	e5ade004 	str	lr, [sp, #4]!
+    835c:	eb000003 	bl	8370 <Label>
+    8360:	e28110ff 	add	r1, r1, #255	; 0xff
+    8364:	e41df004 	ldr	pc, [sp], #-4
+
+00008368 <label2>:
+    8368:	e3a01cff 	mov	r1, #65280	; 0xff00
+    836c:	e12fff1e 	bx	lr
+
+00008370 <Label>:
+    8370:	e5ade004 	str	lr, [sp, #4]!
+    8374:	e3a02004 	mov	r2, #4
+
+00008378 <loop>:
+    8378:	e2800001 	add	r0, r0, #1
+    837c:	e2522001 	subs	r2, r2, #1
+    8380:	1afffffc 	bne	8378 <loop>
+    8384:	ebfffff7 	bl	8368 <label2>
+    8388:	e41df004 	ldr	pc, [sp], #-4
+
+

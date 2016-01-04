@@ -1,0 +1,64 @@
+00008354 <test>:
+    8354:	e92d0810 	push	{r4, fp}
+    8358:	e28db004 	add	fp, sp, #4
+    835c:	e24dd030 	sub	sp, sp, #48	; 0x30
+    8360:	e3083464 	movw	r3, #33892	; 0x8464
+    8364:	e3403000 	movt	r3, #0
+    8368:	e24bc034 	sub	ip, fp, #52	; 0x34
+    836c:	e1a04003 	mov	r4, r3
+    8370:	e8b4000f 	ldm	r4!, {r0, r1, r2, r3}
+    8374:	e8ac000f 	stmia	ip!, {r0, r1, r2, r3}
+    8378:	e8b4000f 	ldm	r4!, {r0, r1, r2, r3}
+    837c:	e8ac000f 	stmia	ip!, {r0, r1, r2, r3}
+    8380:	e8940003 	ldm	r4, {r0, r1}
+    8384:	e88c0003 	stm	ip, {r0, r1}
+    8388:	e3a03000 	mov	r3, #0
+    838c:	e50b300c 	str	r3, [fp, #-12]
+    8390:	e3a03000 	mov	r3, #0
+    8394:	e50b3008 	str	r3, [fp, #-8]
+    8398:	e3a03000 	mov	r3, #0
+    839c:	e50b300c 	str	r3, [fp, #-12]
+    83a0:	ea00000c 	b	83d8 <test+0x84>
+    83a4:	e51b200c 	ldr	r2, [fp, #-12]
+    83a8:	e3e0302f 	mvn	r3, #47	; 0x2f
+    83ac:	e1a02102 	lsl	r2, r2, #2
+    83b0:	e24b1004 	sub	r1, fp, #4
+    83b4:	e0812002 	add	r2, r1, r2
+    83b8:	e0823003 	add	r3, r2, r3
+    83bc:	e5933000 	ldr	r3, [r3]
+    83c0:	e51b2008 	ldr	r2, [fp, #-8]
+    83c4:	e0823003 	add	r3, r2, r3
+    83c8:	e50b3008 	str	r3, [fp, #-8]
+    83cc:	e51b300c 	ldr	r3, [fp, #-12]
+    83d0:	e2833001 	add	r3, r3, #1
+    83d4:	e50b300c 	str	r3, [fp, #-12]
+    83d8:	e51b300c 	ldr	r3, [fp, #-12]
+    83dc:	e3530009 	cmp	r3, #9
+    83e0:	daffffef 	ble	83a4 <test+0x50>
+    83e4:	e51b3008 	ldr	r3, [fp, #-8]
+    83e8:	e1a00003 	mov	r0, r3
+    83ec:	e24bd004 	sub	sp, fp, #4
+    83f0:	e8bd0810 	pop	{r4, fp}
+    83f4:	e12fff1e 	bx	lr
+
+000083f8 <main>:
+    83f8:	e92d4800 	push	{fp, lr}
+    83fc:	e28db004 	add	fp, sp, #4
+    8400:	ebffffd3 	bl	8354 <test>
+    8404:	e1a03000 	mov	r3, r0
+    8408:	e1a00003 	mov	r0, r3
+    840c:	e8bd8800 	pop	{fp, pc}
+
+00008460 <_IO_stdin_used>:
+    8460:	00020001 	andeq	r0, r2, r1
+    8464:	00000000 	andeq	r0, r0, r0
+    8468:	00000001 	andeq	r0, r0, r1
+    846c:	00000002 	andeq	r0, r0, r2
+    8470:	00000003 	andeq	r0, r0, r3
+    8474:	00000004 	andeq	r0, r0, r4
+    8478:	00000005 	andeq	r0, r0, r5
+    847c:	00000006 	andeq	r0, r0, r6
+    8480:	00000007 	andeq	r0, r0, r7
+    8484:	00000008 	andeq	r0, r0, r8
+    8488:	00000009 	andeq	r0, r0, r9
+

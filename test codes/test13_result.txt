@@ -1,0 +1,206 @@
+		STR	LR, [SP, #4]!
+7: /x $pc = 0x8358
+6: /x $lr = 0x2aae7c3b
+5: /x $sp = 0x7efff748
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) s
+main () at test.s:4
+4		BL	Label
+7: /x $pc = 0x835c
+6: /x $lr = 0x2aae7c3b
+5: /x $sp = 0x7efff74c
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) 
+Label () at test.s:12
+12	Label:	STR	LR, [SP, #4]!
+7: /x $pc = 0x8370
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff74c
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) 
+Label () at test.s:13
+13		MOV	R2, #4
+7: /x $pc = 0x8374
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) 
+loop () at test.s:14
+14	loop:	ADD	R0, R0, #1
+7: /x $pc = 0x8378
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x4
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) 
+15		SUBS	R2, R2, #1
+7: /x $pc = 0x837c
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x4
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x2
+(gdb) 
+16		BNE	loop
+7: /x $pc = 0x8380
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x3
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x2
+(gdb) 
+14	loop:	ADD	R0, R0, #1
+7: /x $pc = 0x8378
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x3
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x2
+(gdb) 
+15		SUBS	R2, R2, #1
+7: /x $pc = 0x837c
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x3
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x3
+(gdb) 
+16		BNE	loop
+7: /x $pc = 0x8380
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x2
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x3
+(gdb) 
+14	loop:	ADD	R0, R0, #1
+7: /x $pc = 0x8378
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x2
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x3
+(gdb) 
+15		SUBS	R2, R2, #1
+7: /x $pc = 0x837c
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x2
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x4
+(gdb) 
+16		BNE	loop
+7: /x $pc = 0x8380
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x1
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x4
+(gdb) 
+14	loop:	ADD	R0, R0, #1
+7: /x $pc = 0x8378
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x1
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x4
+(gdb) 
+15		SUBS	R2, R2, #1
+7: /x $pc = 0x837c
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x1
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x5
+(gdb) 
+16		BNE	loop
+7: /x $pc = 0x8380
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x0
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x5
+(gdb) 
+18		BL	label2
+7: /x $pc = 0x8384
+6: /x $lr = 0x8360
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x0
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x5
+(gdb) 
+label2 () at test.s:9
+9	label2:	MOV	R1, #0xff00
+7: /x $pc = 0x8368
+6: /x $lr = 0x8388
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x0
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x5
+(gdb) 
+10		BX	LR
+7: /x $pc = 0x836c
+6: /x $lr = 0x8388
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x0
+2: /x $r1 = 0xff00
+1: /x $r0 = 0x5
+(gdb) 
+loop () at test.s:19
+19		LDR	PC, [SP], #-4
+7: /x $pc = 0x8388
+6: /x $lr = 0x8388
+5: /x $sp = 0x7efff750
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x0
+2: /x $r1 = 0xff00
+1: /x $r0 = 0x5
+(gdb) 
+main () at test.s:6
+6		ADD	R1, R1, #0xff
+7: /x $pc = 0x8360
+6: /x $lr = 0x8388
+5: /x $sp = 0x7efff74c
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x0
+2: /x $r1 = 0xff00
+1: /x $r0 = 0x5
+(gdb) 
+7		LDR	PC, [SP], #-4
+7: /x $pc = 0x8364
+6: /x $lr = 0x8388
+5: /x $sp = 0x7efff74c
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x0
+2: /x $r1 = 0xffff
+1: /x $r0 = 0x5
+(gdb) 
+

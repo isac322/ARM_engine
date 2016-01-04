@@ -1,0 +1,19 @@
+00008354 <main>:
+    8354:	e92d1fff 	push	{r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, ip}
+    8358:	e3a00000 	mov	r0, #0
+    835c:	e3a010ff 	mov	r1, #255	; 0xff
+    8360:	e3a0200f 	mov	r2, #15
+    8364:	e0810002 	add	r0, r1, r2
+    8368:	e3003fff 	movw	r3, #4095	; 0xfff
+    836c:	e34f3fff 	movt	r3, #65535	; 0xffff
+    8370:	e2434078 	sub	r4, r3, #120	; 0x78
+    8374:	e0045000 	and	r5, r4, r0
+    8378:	e1e06005 	mvn	r6, r5
+    837c:	e1847000 	orr	r7, r4, r0
+    8380:	e1c48000 	bic	r8, r4, r0
+    8384:	e0649000 	rsb	r9, r4, r0
+    8388:	e3a0a007 	mov	sl, #7
+    838c:	e26ab002 	rsb	fp, sl, #2
+    8390:	e08bc009 	add	ip, fp, r9
+    8394:	e8bd1fff 	pop	{r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, ip}
+    8398:	e12fff1e 	bx	lr

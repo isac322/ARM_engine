@@ -1,0 +1,231 @@
+3		mov	r1, #4
+8: /x $cpsr = 0x60000010
+7: /x $pc = 0x8358
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x2aaf5f11
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x3
+(gdb) s
+4		mov	r2, #5
+8: /x $cpsr = 0x60000010
+7: /x $pc = 0x835c
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x2aaf5f11
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x4
+1: /x $r0 = 0x3
+(gdb) 
+5		subs	r12, r0, #0
+8: /x $cpsr = 0x60000010
+7: /x $pc = 0x8360
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x2aaf5f11
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x3
+(gdb) 
+6		beq	L5
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x8364
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x3
+(gdb) 
+7		mov	r0, #0
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x8368
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x3
+(gdb) 
+8		mov	r3, r0
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x836c
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x0
+(gdb) 
+L4 () at test.s:10
+10	L4:	add	r3, r3, r1
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x8370
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x0
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x0
+(gdb) 
+12		cmp	r3, r2
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x8374
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x4
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x0
+(gdb) 
+13		rsbgt	r3, r2, r3
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x8378
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x4
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x0
+(gdb) 
+15		add	r0, r0, #1
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x837c
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x4
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x0
+(gdb) 
+17		cmp	r3, r12
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x8380
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x4
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x1
+(gdb) 
+18		cmpne	r0, r2
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x8384
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x4
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x1
+(gdb) 
+19		blt	L4
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x8388
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x4
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x1
+(gdb) 
+10	L4:	add	r3, r3, r1
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x8370
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x4
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x1
+(gdb) 
+12		cmp	r3, r2
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x8374
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x8
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x1
+(gdb) 
+13		rsbgt	r3, r2, r3
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x8378
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x8
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x1
+(gdb) 
+15		add	r0, r0, #1
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x837c
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x3
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x1
+(gdb) 
+17		cmp	r3, r12
+8: /x $cpsr = 0x20000010
+7: /x $pc = 0x8380
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x3
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x2
+(gdb) 
+18		cmpne	r0, r2
+8: /x $cpsr = 0x60000010
+7: /x $pc = 0x8384
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x3
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x2
+(gdb) 
+19		blt	L4
+8: /x $cpsr = 0x60000010
+7: /x $pc = 0x8388
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x3
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x2
+(gdb) 
+21		cmp	r0, r2
+8: /x $cpsr = 0x60000010
+7: /x $pc = 0x838c
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x3
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x2
+(gdb) 
+22		mvneq	r0, #0
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x8390
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x3
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x2
+(gdb) 
+23		bx	lr
+8: /x $cpsr = 0x80000010
+7: /x $pc = 0x8394
+6: /x $lr = 0x2aae7c3b
+5: /x $r12 = 0x3
+4: /x $r3 = 0x3
+3: /x $r2 = 0x5
+2: /x $r1 = 0x4
+1: /x $r0 = 0x2
+(gdb) 

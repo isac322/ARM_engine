@@ -1,0 +1,73 @@
+		MOVS	R1, #0xa0000000
+4: /x $cpsr = 0xa0000010
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0xff000000
+(gdb) n
+4		ANDS	R2, R0, R1
+4: /x $cpsr = 0xa0000010
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0xff000000
+(gdb) 
+5		ORRS	R2, R0, R1
+4: /x $cpsr = 0xa0000010
+3: /x $r2 = 0xa0000000
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0xff000000
+(gdb) 
+6		EORS	R2, R0, R1
+4: /x $cpsr = 0xa0000010
+3: /x $r2 = 0xff000000
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0xff000000
+(gdb) 
+7		BICS	R2, R0, R1
+4: /x $cpsr = 0x20000010
+3: /x $r2 = 0x5f000000
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0xff000000
+(gdb) 
+8		MOVW	R0, #0xffff
+4: /x $cpsr = 0x20000010
+3: /x $r2 = 0x5f000000
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0xff000000
+(gdb) 
+9		MOVT	R0, #0x7fff
+4: /x $cpsr = 0x20000010
+3: /x $r2 = 0x5f000000
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0xffff
+(gdb) 
+10		ANDS	R2, R0, R1
+4: /x $cpsr = 0x20000010
+3: /x $r2 = 0x5f000000
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0x7fffffff
+(gdb) 
+11		ORRS	R2, R0, R1
+4: /x $cpsr = 0x20000010
+3: /x $r2 = 0x20000000
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0x7fffffff
+(gdb) 
+12		EORS	R2, R0, R1
+4: /x $cpsr = 0xa0000010
+3: /x $r2 = 0xffffffff
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0x7fffffff
+(gdb) 
+13		BICS	R2, R0, R1
+4: /x $cpsr = 0xa0000010
+3: /x $r2 = 0xdfffffff
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0x7fffffff
+(gdb) 
+14		BX	LR
+4: /x $cpsr = 0x20000010
+3: /x $r2 = 0x5fffffff
+2: /x $r1 = 0xa0000000
+1: /x $r0 = 0x7fffffff
+(gdb) 
+

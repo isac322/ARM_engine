@@ -1,0 +1,15 @@
+00008354 <main>:
+    8354:	e3b004ff 	movs	r0, #-16777216	; 0xff000000
+    8358:	e3b0120a 	movs	r1, #-1610612736	; 0xa0000000
+    835c:	e0102001 	ands	r2, r0, r1
+    8360:	e1902001 	orrs	r2, r0, r1
+    8364:	e0302001 	eors	r2, r0, r1
+    8368:	e1d02001 	bics	r2, r0, r1
+    836c:	e30f0fff 	movw	r0, #65535	; 0xffff
+    8370:	e3470fff 	movt	r0, #32767	; 0x7fff
+    8374:	e0102001 	ands	r2, r0, r1
+    8378:	e1902001 	orrs	r2, r0, r1
+    837c:	e0302001 	eors	r2, r0, r1
+    8380:	e1d02001 	bics	r2, r0, r1
+    8384:	e12fff1e 	bx	lr
+

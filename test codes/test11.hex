@@ -1,0 +1,34 @@
+00008354 <main>:
+    8354:	e3a00002 	mov	r0, #2
+
+00008358 <LOOP>:
+    8358:	e2500001 	subs	r0, r0, #1
+    835c:	1afffffd 	bne	8358 <LOOP>
+    8360:	e1a0200e 	mov	r2, lr
+    8364:	eb000001 	bl	8370 <test>
+    8368:	e1a0e002 	mov	lr, r2
+    836c:	e12fff1e 	bx	lr
+
+00008370 <test>:
+    8370:	e3a00003 	mov	r0, #3
+    8374:	e59f100c 	ldr	r1, [pc, #12]	; 8388 <test+0x18>
+    8378:	e5913000 	ldr	r3, [r1]
+    837c:	e283300a 	add	r3, r3, #10
+    8380:	e5813000 	str	r3, [r1]
+    8384:	e12fff1e 	bx	lr
+    8388:	00011024 	andeq	r1, r1, r4, lsr #32
+
+Disassembly of section .data:
+
+0001101c <__data_start>:
+   1101c:	00000000 	andeq	r0, r0, r0
+
+00011020 <__dso_handle>:
+   11020:	00000000 	andeq	r0, r0, r0
+
+00011024 <a>:
+   11024:	00000004 	andeq	r0, r0, r4
+
+00011028 <b>:
+   11028:	0000000c 	andeq	r0, r0, ip
+

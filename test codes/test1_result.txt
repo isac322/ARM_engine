@@ -1,0 +1,75 @@
+		MOV	R1, #0
+2: /x $cpsr = 0x60000010
+1: $r1 = 2130704532
+(gdb) n
+4		MOV	R0, #0xf0000000
+2: /x $cpsr = 0x60000010
+1: $r1 = 0
+(gdb) 
+5		ADDS	R0, #0x80000000
+2: /x $cpsr = 0x60000010
+1: $r1 = 0
+(gdb) 
+6		MOVS	R0, R0, ROR #28
+2: /x $cpsr = 0x30000010
+1: $r1 = 0
+(gdb) 
+7		MOVEQ	R1, #1
+2: /x $cpsr = 0x10000010
+1: $r1 = 0
+(gdb) 
+8		MOVNE	R1, #2
+2: /x $cpsr = 0x10000010
+1: $r1 = 0
+(gdb) 
+9		MOVCS	R1, #3
+2: /x $cpsr = 0x10000010
+1: $r1 = 2
+(gdb) 
+10		MOVCC	R1, #4
+2: /x $cpsr = 0x10000010
+1: $r1 = 2
+(gdb) 
+11		MOVMI	R1, #5
+2: /x $cpsr = 0x10000010
+1: $r1 = 4
+(gdb) 
+12		MOVPL	R1, #6
+2: /x $cpsr = 0x10000010
+1: $r1 = 4
+(gdb) 
+13		MOVVS	R1, #7
+2: /x $cpsr = 0x10000010
+1: $r1 = 6
+(gdb) 
+14		MOVVC	R1, #8
+2: /x $cpsr = 0x10000010
+1: $r1 = 7
+(gdb) 
+15		MOVHI	R1, #9
+2: /x $cpsr = 0x10000010
+1: $r1 = 7
+(gdb) 
+16		MOVLS	R1, #10
+2: /x $cpsr = 0x10000010
+1: $r1 = 7
+(gdb) 
+17		MOVGE	R1, #11
+2: /x $cpsr = 0x10000010
+1: $r1 = 10
+(gdb) 
+18		MOVLT	R1, #12
+2: /x $cpsr = 0x10000010
+1: $r1 = 10
+(gdb) 
+19		MOVGT	R1, #13
+2: /x $cpsr = 0x10000010
+1: $r1 = 12
+(gdb) 
+20		MOVLE	R1, #14
+2: /x $cpsr = 0x10000010
+1: $r1 = 12
+(gdb) 
+21		BX	LR
+2: /x $cpsr = 0x10000010
+1: $r1 = 14

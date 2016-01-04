@@ -1,0 +1,39 @@
+		movt	r0, #0x8765
+1: /x $cpsr = 0x60000010
+(gdb) n
+8		movw	r1, #0x1111
+1: /x $cpsr = 0x60000010
+(gdb) 
+9		movt	r1, #0x2222
+1: /x $cpsr = 0x60000010
+(gdb) 
+10		ldr	r2, =mem32
+1: /x $cpsr = 0x60000010
+(gdb) 
+11		swpb	r0, r1, [r2]
+1: /x $cpsr = 0x60000010
+(gdb) 
+12		add	r0, r0, #0xff0000
+1: /x $cpsr = 0x60000010
+(gdb) 
+13		mrs	r3, cpsr
+1: /x $cpsr = 0x60000010
+(gdb) 
+14		ldr	r2, =0x12345678
+1: /x $cpsr = 0x60000010
+(gdb) 
+15		msr	CPSR_c, r2
+1: /x $cpsr = 0x60000010
+(gdb) 
+16		msr	CPSR_x, r2
+1: /x $cpsr = 0x60000010
+(gdb) 
+17		msr	CPSR_s, r2
+1: /x $cpsr = 0x60000010
+(gdb) 
+18		msr	CPSR_f, r2
+1: /x $cpsr = 0x60040010
+(gdb) 
+19		bx	lr
+1: /x $cpsr = 0x10040010
+

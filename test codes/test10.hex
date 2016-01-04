@@ -1,0 +1,14 @@
+00008354 <main>:
+    8354:	e3a00002 	mov	r0, #2
+
+00008358 <LOOP>:
+    8358:	e2500001 	subs	r0, r0, #1
+    835c:	1afffffd 	bne	8358 <LOOP>
+    8360:	e1a0200e 	mov	r2, lr
+    8364:	eb000001 	bl	8370 <main2>
+    8368:	e1a0e002 	mov	lr, r2
+    836c:	e12fff1e 	bx	lr
+
+00008370 <main2>:
+    8370:	e3a00003 	mov	r0, #3
+    8374:	e12fff1e 	bx	lr

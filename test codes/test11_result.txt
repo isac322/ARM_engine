@@ -1,0 +1,138 @@
+		MOV	R0, #2
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x8354
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) s
+LOOP () at test.s:9
+9	LOOP:	SUBS	R0, R0, #1
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x8358
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x2
+(gdb) 
+10		BNE	LOOP
+7: /x $cpsr = 0x20000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x835c
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) 
+9	LOOP:	SUBS	R0, R0, #1
+7: /x $cpsr = 0x20000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x8358
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x1
+(gdb) 
+10		BNE	LOOP
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x835c
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x0
+(gdb) 
+11		MOV	R2, LR
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x8360
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x7efff89c
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x0
+(gdb) 
+12		BL	test
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x8364
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x0
+(gdb) 
+test () at test.s:17
+17	test:	MOV	R0, #3
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x8368
+5: /x $pc = 0x8370
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x0
+(gdb) 
+18		LDR	R1, =a
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x8368
+5: /x $pc = 0x8374
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x7efff894
+1: /x $r0 = 0x3
+(gdb) 
+19		LDR	R3, [R1]
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x8368
+5: /x $pc = 0x8378
+4: /x $r3 = 0x8354
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x11024
+1: /x $r0 = 0x3
+(gdb) 
+20		ADD	R3, R3, #10
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x8368
+5: /x $pc = 0x837c
+4: /x $r3 = 0x4
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x11024
+1: /x $r0 = 0x3
+(gdb) 
+21		STR	R3, [R1]
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x8368
+5: /x $pc = 0x8380
+4: /x $r3 = 0xe
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x11024
+1: /x $r0 = 0x3
+(gdb) 
+22		BX	LR
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x8368
+5: /x $pc = 0x8384
+4: /x $r3 = 0xe
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x11024
+1: /x $r0 = 0x3
+(gdb) 
+LOOP () at test.s:14
+14		MOV	LR, R2
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x8368
+5: /x $pc = 0x8368
+4: /x $r3 = 0xe
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x11024
+1: /x $r0 = 0x3
+(gdb) 
+15		BX	LR
+7: /x $cpsr = 0x60000010
+6: /x $lr = 0x2aae7c3b
+5: /x $pc = 0x836c
+4: /x $r3 = 0xe
+3: /x $r2 = 0x2aae7c3b
+2: /x $r1 = 0x11024
+1: /x $r0 = 0x3
+(gdb) 

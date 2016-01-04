@@ -1,0 +1,82 @@
+		MOV	R1, #1
+4: /x $r2 = 0x7efff89c
+3: /x $r1 = 0x7efff894
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff748
+(gdb) s
+4		MOV	R2, #2
+4: /x $r2 = 0x7efff89c
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff748
+(gdb) 
+5		PUSH	{ R0-R2, LR }
+4: /x $r2 = 0x2
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff748
+(gdb) 
+6		BL	test
+4: /x $r2 = 0x2
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff738
+(gdb) 
+test () at main.s:12
+12	test:	MOV	R2, #4
+4: /x $r2 = 0x2
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff738
+(gdb) 
+13		STR	R2, [SP, #-4]!
+4: /x $r2 = 0x4
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff738
+(gdb) 
+14		MOV	R2, #5
+4: /x $r2 = 0x4
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff734
+(gdb) 
+15		LDR	R2, [SP], #4
+4: /x $r2 = 0x5
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff734
+(gdb) 
+test () at main.s:16
+16		BX	LR
+4: /x $r2 = 0x4
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff738
+(gdb) 
+main () at main.s:7
+7		MOV	R0, #1
+4: /x $r2 = 0x4
+3: /x $r1 = 0x1
+2: /x $r0 = 0x0
+1: /x $sp = 0x7efff738
+(gdb) 
+8		MOV	R1, #2
+4: /x $r2 = 0x4
+3: /x $r1 = 0x1
+2: /x $r0 = 0x1
+1: /x $sp = 0x7efff738
+(gdb) 
+9		MOV	R2, #3
+4: /x $r2 = 0x4
+3: /x $r1 = 0x2
+2: /x $r0 = 0x1
+1: /x $sp = 0x7efff738
+(gdb) 
+10		POP	{ R0-R2, PC }
+4: /x $r2 = 0x3
+3: /x $r1 = 0x2
+2: /x $r0 = 0x1
+1: /x $sp = 0x7efff738
+(gdb) 
+

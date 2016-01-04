@@ -1,0 +1,28 @@
+00008354 <main>:
+    8354:	e3e00000 	mvn	r0, #0
+    8358:	e3500002 	cmp	r0, #2
+    835c:	e3a00001 	mov	r0, #1
+    8360:	e30f1fff 	movw	r1, #65535	; 0xffff
+    8364:	e3471fff 	movt	r1, #32767	; 0x7fff
+    8368:	e0900001 	adds	r0, r0, r1
+    836c:	c3a02004 	movgt	r2, #4
+    8370:	c0900002 	addsgt	r0, r0, r2
+    8374:	e2511001 	subs	r1, r1, #1
+    8378:	e2622002 	rsb	r2, r2, #2
+    837c:	e3720001 	cmn	r2, #1
+    8380:	03a01001 	moveq	r1, #1
+    8384:	13a01002 	movne	r1, #2
+    8388:	23a01003 	movcs	r1, #3
+    838c:	33a01004 	movcc	r1, #4
+    8390:	43a01005 	movmi	r1, #5
+    8394:	53a01006 	movpl	r1, #6
+    8398:	63a01007 	movvs	r1, #7
+    839c:	73a01008 	movvc	r1, #8
+    83a0:	83a01009 	movhi	r1, #9
+    83a4:	93a0100a 	movls	r1, #10
+    83a8:	a3a0100b 	movge	r1, #11
+    83ac:	b3a0100c 	movlt	r1, #12
+    83b0:	c3a0100d 	movgt	r1, #13
+    83b4:	d3a0100e 	movle	r1, #14
+    83b8:	ef000000 	svc	0x00000000
+    83bc:	e12fff1e 	bx	lr

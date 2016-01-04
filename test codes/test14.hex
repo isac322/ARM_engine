@@ -1,0 +1,19 @@
+00008354 <main>:
+    8354:	e3a00000 	mov	r0, #0
+    8358:	e3a01001 	mov	r1, #1
+    835c:	e3a02002 	mov	r2, #2
+    8360:	e92d4007 	push	{r0, r1, r2, lr}
+    8364:	eb000003 	bl	8378 <test>
+    8368:	e3a00001 	mov	r0, #1
+    836c:	e3a01002 	mov	r1, #2
+    8370:	e3a02003 	mov	r2, #3
+    8374:	e8bd8007 	pop	{r0, r1, r2, pc}
+
+00008378 <test>:
+    8378:	e3a02004 	mov	r2, #4
+    837c:	e52d2004 	push	{r2}		; (str r2, [sp, #-4]!)
+    8380:	e3a02005 	mov	r2, #5
+    8384:	e49d2004 	pop	{r2}		; (ldr r2, [sp], #4)
+    8388:	e12fff1e 	bx	lr
+
+
