@@ -2,39 +2,39 @@
 #include <stdlib.h>
 #include "ARM_engine.h"
 
-/** ÀÔ·ÂÀ» ¹Ş°í, ½ÇÇà, Á¾·á¸¦ ´ã´ç. */
+/** ì…ë ¥ì„ ë°›ê³ , ì‹¤í–‰, ì¢…ë£Œë¥¼ ë‹´ë‹¹. */
 
-/* ¼½¼Ç, ÇÔ¼öµé »çÀÌÀÇ ±¸ºĞµÇ´Â ÁÖ¼Ò¸¦ ÀúÀå */
+/* ì„¹ì…˜, í•¨ìˆ˜ë“¤ ì‚¬ì´ì˜ êµ¬ë¶„ë˜ëŠ” ì£¼ì†Œë¥¼ ì €ì¥ */
 addr *symTable;
 
-/* ÀÔ·ÂÀ» ÀúÀå */
+/* ì…ë ¥ì„ ì €ì¥ */
 List *lines;
 
 int startPoint;
 int symCount = 1, lineCount = 0;
 int symTableMax = 10, linesMax = 10;
 
-/* ÀÔ·Â¹Ş´Â ºÎºĞ */
+/* ì…ë ¥ë°›ëŠ” ë¶€ë¶„ */
 int main(int argc, char **args) {
 	char buf[100] = "";
 	int prevLine;
 
-	symTable = (addr *)calloc(10, sizeof(addr));
-	lines = (List *)calloc(10, sizeof(List));
+	symTable = (addr *) calloc(10, sizeof(addr));
+	lines = (List *) calloc(10, sizeof(List));
 
 	fgets(buf, 100, stdin);
-	sscanf_s(buf, "%x", &startPoint);
+	sscanf(buf, "%x", &startPoint);
 	symTable[0].addr = prevLine = startPoint;
 	prevLine -= 4;
 
 	/*
-	 * ÆÄÀÏÀÇ ³¡(Ctrl + Z)¿¡ µµ´ŞÇÒ¶§±îÁö ÇÑÁÙ¾¿ ÀĞ¾îµéÀÓ
-	 *
-	 * ¼¼ºÎ±¸Çö :
-	 * ÁØºñÇÑ ¹è¿­ÀÌ ²ËÂ÷¸é 10°³´ÜÀ§·Î Å©±â Áõ°¡.
-	 * ¹Ù·Î Àü ÀÔ·Â ÁÖ¼Ò¿ÍÀÇ Â÷ÀÌ°¡ 4º¸´Ù Å¬°æ¿ì (¼½¼ÇÀÌ ³ª´µ¾ú°Å³ª, ´Ù¸¥ ÇÔ¼ö ÀÎ°æ¿ì)
-	 * Áö±İ ÁÖ¼Ò¿Í ¹Ù·Î¾Õ±îÁöÀÇ ÁÙ ¼ö¸¦ symTable¿¡ ÀúÀå.
-	 */
+	* íŒŒì¼ì˜ ë(Ctrl + Z)ì— ë„ë‹¬í• ë•Œê¹Œì§€ í•œì¤„ì”© ì½ì–´ë“¤ì„
+	*
+	* ì„¸ë¶€êµ¬í˜„ :
+	* ì¤€ë¹„í•œ ë°°ì—´ì´ ê½‰ì°¨ë©´ 10ê°œë‹¨ìœ„ë¡œ í¬ê¸° ì¦ê°€.
+	* ë°”ë¡œ ì „ ì…ë ¥ ì£¼ì†Œì™€ì˜ ì°¨ì´ê°€ 4ë³´ë‹¤ í´ê²½ìš° (ì„¹ì…˜ì´ ë‚˜ë‰˜ì—ˆê±°ë‚˜, ë‹¤ë¥¸ í•¨ìˆ˜ ì¸ê²½ìš°)
+	* ì§€ê¸ˆ ì£¼ì†Œì™€ ë°”ë¡œì•ê¹Œì§€ì˜ ì¤„ ìˆ˜ë¥¼ symTableì— ì €ì¥.
+	*/
 	for (; fgets(buf, 100, stdin); lineCount++) {
 		if (buf[0] == '\n') {
 			lineCount--;
@@ -42,67 +42,83 @@ int main(int argc, char **args) {
 		}
 
 		if (linesMax <= lineCount) {
-			lines = (List *)realloc(lines, (linesMax += 10)*sizeof(List));
+			lines = (List *) realloc(lines, (linesMax += 10)*sizeof(List));
 		}
 
-		sscanf_s(buf, "%x:%x", &lines[lineCount].addr, &lines[lineCount].oper);
+		sscanf(buf, "%x:%x", &lines[lineCount].addr, &lines[lineCount].oper);
 
-		if (prevLine + 4 != lines[lineCount].addr.INT) {
+		if (prevLine + 4 != lines[lineCount].addr) {
 			if (symTableMax < symCount) {
-				symTable = (addr *)realloc(symTable, (symTableMax += 10)*sizeof(addr));
+				symTable = (addr *) realloc(symTable, (symTableMax += 10)*sizeof(addr));
 			}
+			symTable[symCount].count = lineCount;
+			symTable[symCount].addr = lines[lineCount].addr;
 			symCount++;
-			symTable[symCount - 1].count = (prevLine - symTable[symCount - 2].addr) / 4 + symTable[symCount - 2].count + 1;
-			symTable[symCount - 1].addr = lines[lineCount].addr.INT;
 		}
-		prevLine = lines[lineCount].addr.INT;
+		prevLine = lines[lineCount].addr;
 	}
+	init();
 
 	execute();
 }
 
-/* ÀÔ·Â¹ŞÀº ÄÚµå¸¦ ½ÇÇà */
+/* ì…ë ¥ë°›ì€ ì½”ë“œë¥¼ ì‹¤í–‰ */
 void execute() {
-	cpsr.bits.z = 1;
-	cpsr.bits.c = 1;
+	address oper;
 	*pc = startPoint + 8;
-	*lr = -4;
 
 	while (*pc != 0) {
-		address oper;
 		oper.INT = getCodeAt(*pc - 8);
 
 		if (checkCond(oper.dataproc.cond)) {
-			/* ½ÇÇàÄÚµåÀÇ 26:27 ºñÆ®·Î ¸í·É¹­À½À» ³ª´® */
+			/* ì‹¤í–‰ì½”ë“œì˜ 26:27 ë¹„íŠ¸ë¡œ ëª…ë ¹ë¬¶ìŒì„ ë‚˜ëˆ” */
 			switch (oper.dataproc._zero) {
-			case 0: DataProcess(oper.INT); break;
-			case 1:
-			case 2: Branch_BDT(oper.INT); break;
-			case 3: Coproc(oper.INT); break;
+				case 0: DataProcess(oper.INT); break;
+				case 1: SDTransfer(oper.INT); break;
+				case 2: Branch_BDT(oper.INT); break;
+				case 3: Coproc(oper.INT); break;
 			}
 		}
-		//printf("%8x %8x %8x %8x\n", reg[0], reg[1], reg[2], cpsr.cpsr);
+
+		//printf( "%8x %8x %8x %8x %8x %8x %8x %8x\n", oper.INT, reg[15], reg[14], reg[13], reg[3], reg[2], reg[1], reg[0] );
 
 		*pc += 4;
 	}
 }
 
 /*
- * address : °Ë»öÇÒ ÁÖ¼Ò
- *
- * address¿¡ ÇØ´çÇÏ´Â ½ÇÇàÄÚµå ¹İÈ¯
- */
+* address : ê²€ìƒ‰í•  ì£¼ì†Œ
+*
+* addressì— í•´ë‹¹í•˜ëŠ” ì‹¤í–‰ì½”ë“œ ë°˜í™˜
+*/
 unsigned int getCodeAt(unsigned int address) {
 	int labelJumpN = symCount;
 
-	while (address < symTable[--labelJumpN].addr);
-	return lines[((address - symTable[labelJumpN].addr) >> 2) + symTable[labelJumpN].count].oper.INT;
+	for (; address < symTable[labelJumpN].addr; labelJumpN--);
+
+	if (labelJumpN == symCount) {
+		return *stackAddressConverter(address);
+	}
+	else {
+		return lines[(address - symTable[labelJumpN].addr) / 4 + symTable[labelJumpN].count].oper.INT;
+	}
 }
 
-void printCode() {
-	int i = 0;
+/*
+* address : ê²€ìƒ‰í•  ì£¼ì†Œ
+* value : ì €ì¥í•  ê°’
+*
+* addressì— í•´ë‹¹í•˜ëŠ” ì£¼ì†Œì— valueë¥¼ ì €ì¥
+*/
+void setCodeAt(unsigned int address, int value) {
+	int labelJumpN = symCount;
 
-	for (; i < lineCount; i++) {
-		printf("%08x: %08x\n", lines[i].addr, lines[i].oper);
+	for (; address < symTable[labelJumpN].addr; labelJumpN--);
+
+	if (labelJumpN == symCount) {
+		*stackAddressConverter(address) = value;
+	}
+	else {
+		lines[(address - symTable[labelJumpN].addr) / 4 + symTable[labelJumpN].count].oper.INT = value;
 	}
 }

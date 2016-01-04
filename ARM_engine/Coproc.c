@@ -1,32 +1,37 @@
 #include "ARM_engine.h"
 #include "InstructionsSetBitField.h"
 
-/** 26, 27ºñÆ®°¡ 11ÀÎ ¸í·Éµé ¹­À½ */
+/** 26, 27ë¹„íŠ¸ê°€ 11ì¸ ëª…ë ¹ë“¤ ë¬¶ìŒ */
 
 union {
 	int oper;
 	CoprocDataTransfer CDTransfer;
 	CoprocDataOperation CDOper;
 	CoprocRegisterTransfer CRTransfer;
-	S_W_Interrup swi;
+	S_W_Interrup SWI;
 }oper;
 
+/* ë ˆì§€ìŠ¤í„° 16ê°œë¥¼ ëª¨ë‘ ì¶œë ¥ í›„ ì¢…ë£Œ */
 void swi() {
-	int i = 0;
-
-	for (; i < 16; i++) printf("r%2d: \t%08x\n", i, reg[i]);
+	int i;
+	for (i = 0; i < 16; i++) {
+		printf("r%2d: \t%08x\n", i, reg[i]);
+	}
+	*pc = -4;
 }
 
-/* 26, 27ºñÆ®°¡ 11ÀÎ ¸í·Éµé ¹­À½ */
+/* 26, 27ë¹„íŠ¸ê°€ 11ì¸ ëª…ë ¹ë“¤ ë¬¶ìŒ */
 void Coproc(unsigned int Instruction) {
 	oper.oper = Instruction;
 
 	if (oper.CDTransfer._six == 6) {
 
-	} else if (oper.CDOper._foreTeen == 14) {
+	}
+	else if (oper.CDOper._foreTeen == 14) {
 		if (oper.CDOper._zero == 0) {
 
-		} else {
+		}
+		else {
 
 		}
 	}

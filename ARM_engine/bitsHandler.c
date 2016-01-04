@@ -1,14 +1,14 @@
 #include "ARM_engine.h"
 
-/** ºñÆ®¿­ÀÇ ¼öÁ¤, °¡°øÇÏ´Â ±â´ÉÀÇ ÇÔ¼öµé ¸ğÀ½ */
+/** ë¹„íŠ¸ì—´ì˜ ìˆ˜ì •, ê°€ê³µí•˜ëŠ” ê¸°ëŠ¥ì˜ í•¨ìˆ˜ë“¤ ëª¨ìŒ */
 
 /*
- * src : ¿øº» ºñÆ®¿­
- * start : ½ÃÀÛ ºñÆ® À§Ä¡
- * len : °¡Á®¿Ã ºñÆ® °³¼ö
- *
- * ºñÆ®´Â ¿À¸¥ÂÊÀ¸·Î °¡Á®¿Â´Ù.
- */
+* src : ì›ë³¸ ë¹„íŠ¸ì—´
+* start : ì‹œì‘ ë¹„íŠ¸ ìœ„ì¹˜
+* len : ê°€ì ¸ì˜¬ ë¹„íŠ¸ ê°œìˆ˜
+*
+* startë¶€í„° ì˜¤ë¥¸ìª½ìœ¼ë¡œ lenê°œ ê°€ì ¸ì˜¨ë‹¤.
+*/
 unsigned int getBins(int src, int start, int len) {
 	int tmp = 0, mask = 1;
 
@@ -16,29 +16,20 @@ unsigned int getBins(int src, int start, int len) {
 	tmp = (mask & src) >> (start - len);
 
 	return tmp;
-	/*
-	int tmpAddress = 0;
-	int i = start - 1;
-
-	for (; i > start - len - 1; i--) {
-		tmpAddress <<= 1;
-		if ((src >> i) & 1) tmpAddress++;
-	}
-
-	return tmpAddress;
-	*/
 }
 
+/** ë¹„íŠ¸ì—´ì˜ shift ë‹´ë‹¹
+*
+*	Cì—ì„œ ê¸°ë³¸ì ìœ¼ë¡œ ì œê³µí•˜ëŠ” <<ê³¼ >>ëŠ” lslê³¼ asrì´ë‹¤.
+*	lsrì˜ ê²½ìš°ëŠ” ì•ìª½ì„ ì „ë¶€ 0ìœ¼ë¡œ ì±„ì›Œì•¼ ë˜ê¸°ë•Œë¬¸ì—
+*	bitì˜ 32ë²ˆì§¸ ê°’ì´ 1ì¼ê²½ìš° 32ë²ˆì§¸ ë¹„íŠ¸ê°’ì„ 1ë¹¼ì£¼ë©´ ëœë‹¤.
+*/
 unsigned int lsl(unsigned int bits, unsigned int count) {
-	if (count > 0) {
-		spsr.bits.c = (bits >> (32 - count)) & 1 ? 1 : 0;
-	}
 	return bits <<= count;
 }
 
 unsigned int lsr(unsigned int bits, unsigned int count) {
 	if (count > 0) {
-		spsr.bits.c = (bits >> (count - 1)) & 1 ? 1 : 0;
 		bits >>= 1;
 		if (((bits >> 31) & 1) == 1) bits -= 1 << 31;
 		if (count > 1) bits >>= count - 1;
@@ -48,9 +39,6 @@ unsigned int lsr(unsigned int bits, unsigned int count) {
 }
 
 unsigned int asr(unsigned int bits, unsigned int count) {
-	if (count > 0) {
-		spsr.bits.c = (bits >> (count - 1)) & 1 ? 1 : 0;
-	}
 	return bits >>= count;
 }
 
@@ -60,18 +48,17 @@ unsigned int ror(unsigned int bits, unsigned int count) {
 
 		bits = lsr(bits, count);
 		bits += tmp << (32 - count);
-		spsr.bits.c = (tmp >> (count - 1)) & 1 ? 1 : 0;
 	}
 
 	return bits;
 }
 
 /*
- * operand : 12ºñÆ®ÀÇ operand2
- * imme : 1ÀÌ¸é »ó¼ö 0ÀÌ¸é ·¹Áö½ºÅÍ
- *
- * operand ºĞ¼®, ½¬ÇÁÆ® Ã³¸® ÈÄ ¾Ë¸ÂÀº °ª ¹İÈ¯.
- */
+* operand : 12ë¹„íŠ¸ì˜ operand2
+* imme : 1ì´ë©´ ìƒìˆ˜ 0ì´ë©´ ë ˆì§€ìŠ¤í„°
+*
+* operand ë¶„ì„, ì‰¬í”„íŠ¸ ì²˜ë¦¬ í›„ ì•Œë§ì€ ê°’ ë°˜í™˜.
+*/
 unsigned int shift(unsigned int operand, unsigned int imme) {
 	unsigned int shiftCount = 0;
 	unsigned int shiftedVal = 0;
@@ -79,7 +66,8 @@ unsigned int shift(unsigned int operand, unsigned int imme) {
 	if (imme == 1) {
 		shiftCount = getBins(operand, 12, 4) << 1;
 		shiftedVal = ror(getBins(operand, 8, 8), shiftCount);
-	} else {
+	}
+	else {
 		unsigned int shiftOper = getBins(operand, 7, 2);
 		unsigned int rn = reg[getBins(operand, 4, 4)];
 		shiftCount = getBins(operand, 12, 5);
@@ -89,10 +77,10 @@ unsigned int shift(unsigned int operand, unsigned int imme) {
 		}
 
 		switch (shiftOper) {
-		case 0:shiftedVal = lsl(rn, shiftCount); break;
-		case 1:shiftedVal = lsr(rn, shiftCount); break;
-		case 2:shiftedVal = asr(rn, shiftCount); break;
-		case 3:shiftedVal = ror(rn, shiftCount); break;
+			case 0:shiftedVal = lsl(rn, shiftCount); break;
+			case 1:shiftedVal = lsr(rn, shiftCount); break;
+			case 2:shiftedVal = asr(rn, shiftCount); break;
+			case 3:shiftedVal = ror(rn, shiftCount); break;
 		}
 	}
 
@@ -100,40 +88,40 @@ unsigned int shift(unsigned int operand, unsigned int imme) {
 }
 
 /*
- * num1 : ¿¬»êÀü °ª
- * num2 : ¿¬»ê ÇÒ °ª
- * result : ¿¬»êÈÄ °ª
- *
- * n -- 31¹øÂ° ºñÆ®°¡ 1ÀÌ¸é 1
- * z -- °á°ú °ªÀÌ 0ÀÌ¸é 1
- * c -- 32¹øÂ° ºñÆ®°¡ 1ÀÌ¸é 1
- * v -- ¿¬»êÇÒ µÎ ¼öÀÇ ºÎÈ£°¡°°°í, ¿¬»êÈÄ¿Í´Â ´Ù¸£¸é 1
- */
+* num1 : ì—°ì‚°ì „ ê°’
+* num2 : ì—°ì‚° í•  ê°’
+* result : ì—°ì‚°í›„ ê°’
+*
+* n -- 31ë²ˆì§¸ ë¹„íŠ¸ê°€ 1ì´ë©´ 1
+* z -- ê²°ê³¼ ê°’ì´ 0ì´ë©´ 1
+* c -- 32ë²ˆì§¸ ë¹„íŠ¸ê°€ 1ì´ë©´ 1
+* v -- ì—°ì‚°í•  ë‘ ìˆ˜ì˜ ë¶€í˜¸ê°€ê°™ê³ , ì—°ì‚°í›„ì™€ëŠ” ë‹¤ë¥´ë©´ 1
+*/
 void cpsrUpdate(unsigned int num1, unsigned int num2, long long result) {
 	cpsr.bits.n = ((result >> 31) & 1ll) == 1 ? 1 : 0;
-	cpsr.bits.z = result == 0 ? 1 : 0;
+	cpsr.bits.z = (unsigned int) result == 0 ? 1 : 0;
 	cpsr.bits.c = result > 0xffffffff ? 1 : 0;
 	cpsr.bits.v = (((num1 ^ num2) >> 31) & 1) == 0 && (((num1 ^ result) >> 31) & 1ll) == 1 ? 1 : 0;
 }
 
-/* cpsrÀ» ÂüÁ¶ÇØ¼­ bool°ª ¹İÈ¯ */
+/* cpsrì„ ì°¸ì¡°í•´ì„œ boolê°’ ë°˜í™˜ */
 int checkCond(int cond) {
 	switch (cond) {
-	case 0: return cpsr.bits.z;
-	case 1: return !cpsr.bits.z;
-	case 2: return cpsr.bits.c;
-	case 3: return !cpsr.bits.c;
-	case 4: return cpsr.bits.n;
-	case 5: return !cpsr.bits.n;
-	case 6: return cpsr.bits.v;
-	case 7: return !cpsr.bits.v;
-	case 8: return cpsr.bits.c & !cpsr.bits.z;
-	case 9: return !cpsr.bits.c | cpsr.bits.z;
-	case 10: return !(cpsr.bits.n ^ cpsr.bits.v);
-	case 11: return cpsr.bits.n ^ cpsr.bits.v;
-	case 12: return !cpsr.bits.z & !(cpsr.bits.n ^ cpsr.bits.v);
-	case 13: return cpsr.bits.z | (cpsr.bits.n ^ cpsr.bits.v);
-	case 14: return 1;
-	case 15: return 0;
+		case 0: return cpsr.bits.z;
+		case 1: return !cpsr.bits.z;
+		case 2: return cpsr.bits.c;
+		case 3: return !cpsr.bits.c;
+		case 4: return cpsr.bits.n;
+		case 5: return !cpsr.bits.n;
+		case 6: return cpsr.bits.v;
+		case 7: return !cpsr.bits.v;
+		case 8: return cpsr.bits.c & !cpsr.bits.z;
+		case 9: return !cpsr.bits.c | cpsr.bits.z;
+		case 10: return !(cpsr.bits.n ^ cpsr.bits.v);
+		case 11: return cpsr.bits.n ^ cpsr.bits.v;
+		case 12: return !cpsr.bits.z & !(cpsr.bits.n ^ cpsr.bits.v);
+		case 13: return cpsr.bits.z | (cpsr.bits.n ^ cpsr.bits.v);
+		case 14: return 1;
+		case 15: return 0;
 	}
 }

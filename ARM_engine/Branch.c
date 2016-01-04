@@ -1,7 +1,7 @@
 #include "ARM_engine.h"
 #include "InstructionsSetBitField.h"
 
-/** 26, 27ºñÆ®°¡ 10ÀÎ ¸í·Éµé ¹­À½ */
+/** 26, 27ë¹„íŠ¸ê°€ 10ì¸ ëª…ë ¹ë“¤ ë¬¶ìŒ */
 
 union {
 	int oper;
@@ -10,21 +10,66 @@ union {
 }oper;
 
 void branch() {
-	if (oper.branch.l == 1) *lr = reg[15] - 4;
-	*pc = oper.branch.offset << 2;
+	int tmp;
+
+	if (oper.branch.l == 1) *lr = reg[15];
+	tmp = oper.branch.offset << 8;
+	*pc += (tmp >> 6) + 4;
+}
+
+void ldm() {
+	unsigned int base = reg[oper.btransf.rn];
+	int offset = oper.btransf.u == 1 ? 4 : -4;
+	int tmp = 0, i;
+
+	for (; tmp < 16; tmp++) {
+		/* Up ì´ê±°ë‚˜ Down ì¼ë•Œë¥¼ ëŒ€ë¹„í•œ ì½”ë“œ */
+		i = oper.btransf.u == 1 ? tmp : 15 - tmp;
+
+		if (((oper.btransf.registerList >> i) & 1) == 1) {
+			if (oper.btransf.p == 1) base += offset;
+			reg[i] = getCodeAt(base);
+			if (oper.btransf.p == 0) base += offset;
+		}
+	}
+	if (oper.btransf.w == 1) reg[oper.btransf.rn] = base;
+
+	stackUpdate();
+}
+
+void stm() {
+	unsigned int base = reg[oper.btransf.rn];
+	int offset = oper.btransf.u == 1 ? 4 : -4;
+	int tmp = 0, i;
+
+	for (; tmp < 16; tmp++) {
+		/* Up ì´ê±°ë‚˜ Down ì¼ë•Œë¥¼ ëŒ€ë¹„í•œ ì½”ë“œ */
+		i = oper.btransf.u == 1 ? tmp : 15 - tmp;
+
+		if (((oper.btransf.registerList >> i) & 1) == 1) {
+			if (oper.btransf.p == 1) base += offset;
+			setCodeAt(base, reg[i]);
+			if (oper.btransf.p == 0) base += offset;
+		}
+	}
+	if (oper.btransf.w == 1) reg[oper.btransf.rn] = base;
+
+	stackUpdate();
 }
 
 void block_data_transfer() {
-
+	if (oper.btransf.l == 1) ldm();
+	else stm();
 }
 
-/* 26, 27ºñÆ®°¡ 10ÀÎ ¸í·Éµé ¹­À½ */
+/* 26, 27ë¹„íŠ¸ê°€ 10ì¸ ëª…ë ¹ë“¤ ë¬¶ìŒ */
 void Branch_BDT(unsigned int Instruction) {
 	oper.oper = Instruction;
 
 	if (((oper.oper >> 25) & 1) == 1) {
 		branch();
-	} else {
+	}
+	else {
 		block_data_transfer();
 	}
 }

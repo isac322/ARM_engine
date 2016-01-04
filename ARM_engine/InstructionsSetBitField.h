@@ -1,7 +1,7 @@
 #ifndef INSTRUCTION_SET_BIT_FIELD_H
 #define INSTRUCTION_SET_BIT_FIELD_H
 
-/** ½ÇÇàÄÚµå ¹­À½º° ºñÆ®ÇÊµå Á¤ÀÇ */
+/** ì‹¤í–‰ì½”ë“œ ë¬¶ìŒë³„ ë¹„íŠ¸í•„ë“œ ì •ì˜ */
 
 typedef struct _DataProcessing {
 	unsigned opR2 : 12;
@@ -38,7 +38,7 @@ typedef struct _DataSwap {
 }DataSwap;
 
 typedef struct _SingleDataTransfer {
-	unsigned offset : 4;
+	unsigned offset : 12;
 	unsigned rd : 4;
 	unsigned rn : 4;
 	unsigned l : 1;
@@ -122,5 +122,17 @@ typedef struct _S_W_Interrup {
 	unsigned _fifteen : 4;
 	unsigned cond : 4;
 }S_W_Interrup;
+
+typedef struct _Mull {
+	unsigned rm : 4;
+	unsigned _nine : 4;
+	unsigned rs : 4;
+	unsigned RdLo : 4;
+	unsigned RdHi : 4;
+	unsigned s : 1;
+	unsigned u : 2;
+	unsigned _one : 5;
+	unsigned cond : 4;
+}Mull;
 
 #endif
