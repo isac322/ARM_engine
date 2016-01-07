@@ -5,7 +5,7 @@ _**This is just fork repository. [Original repo](https://bitbucket.org/isac322/a
 - interpret ARMv7 Assembly code
 
 ## Environment
-- C99 support c compiler
+- c compiler that support C99
   
 ## Usage
 	cat <Assembly code> | ./a.out
@@ -60,4 +60,4 @@ void main() {
 ```
 	
 ## Issue
-- swi() (Software Inturrupt) does not implement. **swi() just print all register and kill program.**
+- swi() (Software Inturrupt) is not implemented. **swi() just print all register and kill program.**
